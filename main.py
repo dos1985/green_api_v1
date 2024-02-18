@@ -3,7 +3,7 @@ from flask import Flask, request, jsonify, send_from_directory
 from flask_cors import CORS
 from whatsapp_api_client_python import API
 
-app = Flask(__name__, static_folder='static')
+app = Flask(__name__, static_folder='/')
 CORS(app)
 
 @app.route('/')
@@ -56,6 +56,7 @@ def state_instance():
 def serve_js(filename):
     return send_from_directory('js', filename)
 
+
 @app.route('/send_file_by_url', methods=['POST'])
 def send_file_by_url():
     data = request.json
@@ -79,6 +80,7 @@ def send_file_by_url():
         return jsonify(response.json()), 200
     else:
         return jsonify({'error': 'Error sending file', 'status_code': response.status_code}), response.status_code
+
 
 if __name__ == '__main__':
     app.run(debug=True)
